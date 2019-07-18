@@ -1,0 +1,52 @@
+.height{
+min-width: height 100vh;
+}
+
+#banner{
+    padding: 200px 0;
+    background-image: url(../images/bg3.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+    
+}
+
+.pfont{
+    font-size: 20px;
+    padding-bottom: 0;
+    color: white;
+    font-weight: bold;
+
+}
+.banhfont{
+    font-size: 80px;
+    padding-bottom: 0;
+    color: white;
+
+}
+
+.hfont{
+    font-size: 50px;
+    padding-bottom: 0;
+    color: white;
+
+}
+#image{
+padding: 300px ;
+background-image: url(../images/bg.jpg);
+background-position: center;
+background-repeat: no-repeat;
+background-attachment:unset;
+background-size: cover;
+
+}
+#ptn{
+    padding: 100px ;
+    background-image: url(../images/ptn1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment:unset;
+    background-size:auto;
+    
+    }

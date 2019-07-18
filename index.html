@@ -1,0 +1,244 @@
+<?php
+//use helper class
+require_once("DAL/DBAccess.php");
+require_once('Services/Main.php');
+require_once('Helper/Validators.php');
+
+$bootcamp = new Bootcamp();
+$validator = new Validator();
+
+?>
+
+<?php
+
+      if(isset($_POST['register_btn']))
+      {
+        //PROCESS THE registration form, lets validate first
+        if(!empty($_POST['firstname']) AND !empty($_POST['lastname']) AND !empty($_POST['email']) AND !empty($_POST['phone']) AND !empty($_POST['participants']) AND !empty($_POST['age-range']) AND !empty($_POST['location']))
+        {
+          //lets get the inputed values and validate
+          $validator->SanitizeInputs($bootcamp->firstName = $_POST['firstname']);
+          $validator->SanitizeInputs($bootcamp->lastName = $_POST['lastname']);
+          $validator->SanitizeInputs($bootcamp->email = $_POST['email']);
+          $validator->SanitizeInputs($bootcamp->phone = $_POST['phone']);
+          $validator->SanitizeInputs($bootcamp->phone2 = $_POST['phone2']);
+          $validator->SanitizeInputs($bootcamp->participants = $_POST['participants']);
+          $validator->SanitizeInputs($bootcamp->location = $_POST['location']);
+          $validator->SanitizeInputs($bootcamp->ageRange = $_POST['age-range']);
+
+          //validate the email if ok
+          if(filter_var($bootcamp->email, FILTER_VALIDATE_EMAIL))
+          {
+             //email is good and now we can register this user by calling the register method
+             $bootcamp->Register();
+
+          }else {
+            $_SESSION['invalid'] = "Sorry, the email address is invalid";
+          }
+
+
+        }else {
+          $_SESSION['invalid'] = 'Sorry, you should fill all the require fields. Only Alternative phone is optional';
+        }
+      }
+?>
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="C:\Users\chinedu\Desktop\tekazon\fonts\css\all.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="./css/main.css">
+    <!--load all styles -->
+
+    <title>Tekazon Bootcamp</title>
+  </head>
+  <body>
+
+    <!-- Nav begins here -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" href="#"><img src="./images/ptn.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-light" href="index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link text-light" href="#about">About</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link text-light" href="#contact">Contact</a>
+              </li>
+                
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    <!-- Nav ends here -->
+
+    <!-- Banner section starts here -->
+  <section id='banner' class="bg-info">
+  <div class="container-fluid">
+  
+    <div class="row text-center align-items-center height py-5">
+      <div class="col">
+     <h1 class="text-warning banhfont">Teens Summer Coding Bootcamp</h1>
+       <p class="pfont text-uppercase ">Lagos: 5th - 16th August 2019</p>
+       <p class="pfont text-uppercase ">Abuja: 12th - 26th August 2019</p>
+       <a href="#register"><button class="btn btn-danger px-5">Register</button></a>
+             
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End of banner section -->
+
+
+<!-- Container starts here -->
+<div class="container py-5" id="about">
+  <div class="row height align-items-center py-5">
+    <div class="col" >
+      <h1 class=" text-danger text-center hfont">About the Event</h1>
+      <p class="text-dark text-align-justify">This summer Bootcamp is focused of exposing teenagers between the ages 9 and 19 years to computer programming concepts. We believe that the foundation to writing clean codes and transitioning to great programmers is understanding of the basic programming concepts, data structures, Loops, Conditionals, Iteration etc.</p>
+      <p class="text-dark text-align-justify">In this bootcamp, we would be exposing teenagers to Data Structures, Cloud development, Machine learning, Artificial Intelligence.<br> At the end of the bootcamp, participants would have developed the aptitude to solve real world problems programmatically</p>
+
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-6 text-center">
+          <i class="fas fa-search-location fa-4x text-danger text-center my-4 "></i>
+        <h3 class="text-dark ">Lagos</h3>
+        <p class="text-dark">Venia Business Hub,<br>8 Providence Street, Lekki Phase1,<br>Lagos</p>
+        <p class="text-dark">Monday, August 5th - August 16th, 2019</p>
+      </div>
+      <div class="col-6 text-center">
+          <i class="fas fa-search-location fa-4x text-danger text-center my-4 "></i>
+          <h3 class="text-dark ">Abuja</h3>
+          
+          <p class="text-dark">Banquet Hall 
+              Gopro Restaurant And Fish Shop 
+              Address: House 57 , Abidjan Street, Zone 3, Wuse, Abuja</p>
+              <p class="text-dark">Monday, August 12th - August 26th, 2019</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Container -->
+
+<!-- Form container -->
+
+<div class="container-fluid bg-danger">
+  
+    <div class="row text-center align-items-center height py-5">
+      <div id="image" class="col-lg-6 col-sm-3 col-md-4"></div>
+      <div class="col-lg-6 col-sm-3 col-md-4" id="register">
+          <h3 class="text-light px-5">Get 37.5% Discount! Pay 50,000 Naira instead of 80,000 Naira to the account details below and fill out the fom!<br> <span class="text-uppercase text-warning">Register Now!</span> </h3>
+          <form method="post" autocomplete="on" class="form-signin " style="background-color: white; width:600px; margin:auto; padding:5px;">
+              
+              <p class="text-danger">
+                <?php
+                if(isset($_SESSION['invalid'])) {echo $_SESSION['invalid']; unset($_SESSION['invalid']);}
+                ?>
+              </p>
+              <h3 class="text-success text-center">
+                <?php
+                if(isset($_SESSION['success'])){ echo $_SESSION['success']; unset($_SESSION['success']);}
+                ?>
+              </h3>
+
+              <label for="firstname" class="sr-only">First Name</label>
+              <input type="text" id="firstname" name="firstname" class="form-control input-md" value="" required placeholder="First Name" autofocus>
+              <br/>
+
+
+                <label for="lastname" class="sr-only">Last Name</label>
+                <input type="text" id="lastname" name="lastname" class="form-control input-md" value="" required placeholder="Last Name" autofocus>
+                <br/>
+
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" id="email" name="email" class="form-control input-md" value="" required placeholder="Email address" autofocus>
+                <br/>
+
+                <label for="phone" class="sr-only">Mobile</label>
+                <input type="text" id="phone" name="phone" class="form-control input-md" required placeholder="Mobile Number" autofocus>
+                <br/>
+
+                <label for="phone2" class="sr-only">Mobile (2)</label>
+                <input type="text" id="phone2" name="phone2" class="form-control input-md" placeholder="Alternative Mobile Number" autofocus>
+                <br/>
+
+                <label for="participants" class="sr-only">No. of Participants</label>
+                <input type="number" id="participants" name="participants" class="form-control input-md" required placeholder="Participants e.g 1, 2 or 3" autofocus>
+                <br/>
+                <select class="form-control input-md" name="age-range" required>
+                  <option value="">--Select Age Range--</option>
+                  <option value="2">9 - 13 (Years old)</option>
+                  <option value="3">14 - 18 (Years old)</option>
+                </select>
+                 <br/>
+                <select class="form-control input-md" name="location" required>
+                  <option value="">--Location--</option>
+                  <option value="Lagos">Lagos Bootcamp</option>
+                  <option value="Abuja">Abuja Bootcamp</option>
+                </select>
+                <br/><br/>
+                <input class="btn btn-lg btn-warning btn-block" type="submit" name="register_btn" value="Register" style="font-size:20px;font-weight:bolder;">
+        </form>             
+           </div>
+    </div>
+  </div>
+  <!-- End of forms -->
+
+  <!-- Our Partners -->
+
+  <div class="jumbotron text-center">
+    <h4 class="text-dark">Our Partners</h4>
+              <img src="./images/en.png">   
+            <img  src="./images/ptn1.png">                           
+    </div>
+
+    <!-- Footer -->
+  <div class="container-fluid bg-dark" id="contact">
+  
+      <div class="row height py-5">
+        <div class="col-lg-4 col-sm-6 col-md-4 text-light">
+          <h3 class=" text-center">For Enquiries</h3>
+          <p class=" text-center">08088214673<br>08068788278<br>07066819424</p> 
+        </div>
+        <div class="col-lg-4 col-sm-6 col-md-4 text-light">
+            <h3 class=" text-center">Make Payments</h3>
+          <p class=" text-center">Access Bank<br>0097628432<br>
+              Enclear Solutions Limited</p>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-md-4 text-light">
+            <h3 class=" text-center">Contact Us</h3>
+          <p class=" text-center">info@tekazon.com<br>www.tekazon.com</p>
+        
+    </div>
+
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
